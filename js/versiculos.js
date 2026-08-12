@@ -17,6 +17,23 @@ function mostrarMensaje(contenedor, mensaje) {
   contenedor.appendChild(aviso);
 }
 
+// Esqueleto de carga: simula líneas de texto mientras se descarga el dataset.
+function mostrarSkeleton(contenedor) {
+  contenedor.innerHTML = "";
+  const esqueleto = document.createElement("div");
+  esqueleto.className = "skeleton";
+  esqueleto.setAttribute("role", "status");
+  esqueleto.setAttribute("aria-label", "Cargando versículos");
+  for (let i = 0; i < 12; i++) {
+    const linea = document.createElement("div");
+    linea.className = "skeleton-linea";
+    // Anchuras variables para imitar el ritmo del texto real.
+    linea.style.width = `${38 + ((i * 17) % 56)}%`;
+    esqueleto.appendChild(linea);
+  }
+  contenedor.appendChild(esqueleto);
+}
+
 async function main() {
   const contenedorVersiculos = document.querySelector(".versiculos");
   if (!contenedorVersiculos) return;
@@ -30,6 +47,8 @@ async function main() {
     mostrarMensaje(contenedorVersiculos, "No se pudo identificar este capítulo.");
     return;
   }
+
+  mostrarSkeleton(contenedorVersiculos);
 
   try {
     const respuesta = await fetch(RUTA_DATOS);
