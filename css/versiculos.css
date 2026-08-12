@@ -41,6 +41,39 @@
     text-transform: uppercase;
 }
 
+/* Esqueleto de carga: líneas con brillo que imitan el texto */
+
+.skeleton {
+    display: flex;
+    flex-direction: column;
+    gap: 17px;
+    padding: 6px 0;
+}
+
+.skeleton-linea {
+    animation: brillo-skeleton 1.3s ease-in-out infinite;
+    background: linear-gradient(90deg, var(--linea) 20%, #eee3cd 50%, var(--linea) 80%);
+    background-size: 200% 100%;
+    border-radius: var(--radio);
+    height: 15px;
+}
+
+@keyframes brillo-skeleton {
+    from {
+        background-position: 200% 0;
+    }
+
+    to {
+        background-position: -200% 0;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .skeleton-linea {
+        animation: none;
+    }
+}
+
 /* Mensajes de estado (en preparación, errores) */
 
 .versiculos p {
